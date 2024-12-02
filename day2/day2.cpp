@@ -1,12 +1,13 @@
+#include <cmath>
 #include <cstdio>
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <vector>
-#include <cmath>
 
-bool isSafe(const std::vector<int>& row) {
-    if (row.size() < 2) return true;
+bool isSafe(const std::vector<int> &row) {
+    if (row.size() < 2)
+        return true;
 
     bool increasing = true, decreasing = true;
 
@@ -17,8 +18,10 @@ bool isSafe(const std::vector<int>& row) {
             return false;
         }
 
-        if (diff > 0) decreasing = false;
-        if (diff < 0) increasing = false;
+        if (diff > 0)
+            decreasing = false;
+        if (diff < 0)
+            increasing = false;
     }
 
     return increasing || decreasing;
@@ -28,7 +31,7 @@ bool isSafeWithOneRemoval(std::vector<int> row) {
     for (int i = 0; i < row.size(); ++i) {
         std::vector<int> modifiedRow = row;
         modifiedRow.erase(modifiedRow.begin() + i);
-        
+
         if (isSafe(modifiedRow)) {
             return true;
         }
@@ -36,9 +39,9 @@ bool isSafeWithOneRemoval(std::vector<int> row) {
     return false;
 }
 
-int part1(const std::vector<std::vector<int>>& matrix) {
+int part1(const std::vector<std::vector<int>> &matrix) {
     int safeCount = 0;
-    for (const auto& row : matrix) {
+    for (const auto &row: matrix) {
         if (isSafe(row)) {
             safeCount++;
         }
@@ -46,9 +49,9 @@ int part1(const std::vector<std::vector<int>>& matrix) {
     return safeCount;
 }
 
-int part2(const std::vector<std::vector<int>>& matrix) {
+int part2(const std::vector<std::vector<int>> &matrix) {
     int safeCount = 0;
-    for (const auto& row : matrix) {
+    for (const auto &row: matrix) {
         if (isSafe(row) || isSafeWithOneRemoval(row)) {
             safeCount++;
         }
@@ -56,12 +59,13 @@ int part2(const std::vector<std::vector<int>>& matrix) {
     return safeCount;
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
     std::vector<std::vector<int>> matrix;
 
     std::string line;
     while (std::getline(std::cin, line)) {
-        if (line.empty()) break;
+        if (line.empty())
+            break;
 
         std::vector<int> row;
         std::stringstream ss(line);
