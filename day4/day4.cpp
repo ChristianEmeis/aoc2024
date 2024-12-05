@@ -47,7 +47,30 @@ int part1(vector<vector<char>> arr) {
 
 
 int part2(vector<vector<char>> arr) {
-    return 0;
+    
+    CustTuple directions[8] = {{1, 1}, {-1, -1}, {1, -1}, {-1, 1}};
+    int found = 0;
+    int rowIndex = 1;
+    int colIndex = 0;
+    while (rowIndex + 1 < arr.size()) {
+        int rowCount = arr.size();
+        colIndex = 1;
+        while (colIndex + 1 < arr[rowIndex].size()){
+            int colCount = arr[rowIndex].size();
+            for (CustTuple direction : directions) {
+                if ( arr[rowIndex - direction.x][colIndex - direction.x] == 'M' && 
+                     arr[rowIndex][colIndex] == 'A' && 
+                     arr[rowIndex + direction.x][colIndex + direction.x] == 'S' && 
+                     arr[rowIndex + direction.y][colIndex - direction.y] == 'M' && 
+                     arr[rowIndex - direction.y][colIndex + direction.y] == 'S' ) {
+                    found++;
+                }
+            }
+            colIndex++;
+        }
+        rowIndex++;
+    }
+    return found;
 }
 
 int main() {
